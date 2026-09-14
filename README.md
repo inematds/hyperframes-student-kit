@@ -6,6 +6,10 @@ construa motion graphics com HyperFrames e GSAP.
 
 ![Acabou. É o fim de uma era: edição complexa, horas de trabalho e softwares tradicionais dão lugar ao agente](docs/images/capa-acabou.jpg)
 
+## 📖 Guia de uso
+
+Guia completo (landing + passo a passo): **https://inematds.github.io/hyperframes-student-kit/guia/**
+
 **Começando agora?** Leia o [guia rápido](docs/GUIA-RAPIDO.md): instalação, abertura do
 projeto no Codex ou no Claude Code, chave da ElevenLabs, o prompt do primeiro vídeo,
 loop de feedback e como transformar o resultado em skill. A

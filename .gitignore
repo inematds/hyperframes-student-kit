@@ -40,3 +40,7 @@ Thumbs.db
 
 # Fotos simuladas de apresentador usadas como exemplo no README.
 !docs/images/
+
+# Guia (GitHub Pages) e capa oficial do catálogo.
+!guia/assets/
+!capa/
