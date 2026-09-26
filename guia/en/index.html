@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HyperFrames Student Kit — video editing with agents</title>
+<meta name="description" content="A skill kit that turns a recording into an edited video with motion graphics: transcription, cuts, beats anchored to speech, showreels and loop verification, with HyperFrames and GSAP. Guide in English.">
+<link rel="alternate" hreflang="pt-BR" href="https://inematds.github.io/hyperframes-student-kit/guia/">
+<link rel="alternate" hreflang="en" href="https://inematds.github.io/hyperframes-student-kit/guia/en/">
+<link rel="alternate" hreflang="es" href="https://inematds.github.io/hyperframes-student-kit/guia/es/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0c0c10; --bg2:#14141b; --card:#16161e; --line:#272730;
+    --txt:#e9e9ee; --mut:#9a9aa6; --amb:#E2A23B; --amb2:#f0c070; --sky:#38bdf8; --pro:#cbd5e1;
+    color-scheme:dark;
+  }
+  body.light{
+    --bg:#f6f7f9; --bg2:#eceef2; --card:#ffffff; --line:#e1e3ea;
+    --txt:#1a1a22; --mut:#5b5b68; --amb:#b9791d; --amb2:#a16207; --sky:#0369a1; --pro:#b45309;
+    color-scheme:light;
+  }
+  body.light .hero .glow{opacity:.5}
+  body.light pre{background:#0e0e14;color:#d6d6e0}
+  body.light pre .c{color:#8a8a98}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--txt);font:16px/1.65 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:Sora,sans-serif;line-height:1.15;margin:0}
+  a{color:var(--amb);text-decoration:none}
+  code,pre{font-family:"JetBrains Mono",monospace}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 22px}
+  .mut{color:var(--mut)} .amb{color:var(--amb)}
+  .chip{display:inline-block;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--amb);font-weight:600;font-family:Sora}
+  nav{position:sticky;top:0;z-index:30;backdrop-filter:blur(12px);background:rgba(12,12,16,.78);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;align-items:center;gap:22px;height:60px}
+  nav .brand{display:flex;align-items:center;gap:8px;font-family:Sora;font-weight:800;letter-spacing:-.02em;color:var(--amb)}
+  nav .brand .emoji{font-size:1.25rem}
+  nav .sep{color:var(--mut);opacity:.45}
+  nav .inema{color:var(--sky);font-weight:600;font-size:.88rem;font-family:Sora}
+  nav .inema:hover{filter:brightness(1.15)}
+  nav .pro{color:var(--pro);font-weight:600;font-size:.88rem;font-family:Sora}
+  nav .pro:hover{filter:brightness(1.15)}
+  nav .clubpro{display:inline-flex;align-items:center;gap:6px}
+  nav .links{margin-left:auto;display:flex;align-items:center;gap:20px;font-size:.92rem}
+  nav .links a.sec{color:var(--mut)} nav .links a.sec:hover{color:var(--txt)}
+  .lang{display:inline-flex;gap:2px;font-family:Sora;font-size:.78rem}
+  .lang a{color:var(--mut);padding:.2em .45em;border-radius:6px} .lang a.on{color:var(--amb);background:rgba(226,162,59,.12)}
+  .tgl{background:var(--bg2);border:1px solid var(--line);color:var(--txt);width:38px;height:38px;border-radius:10px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-size:1.05rem}
+  .tgl:hover{border-color:var(--amb)}
+  .btn{display:inline-block;background:var(--amb);color:#1a1206;font-weight:600;padding:.6em 1.05em;border-radius:10px;font-family:Sora}
+  .btn.ghost{background:transparent;color:var(--txt);border:1px solid var(--line)}
+  @media(max-width:760px){nav .links a.sec{display:none}}
+  @media(max-width:520px){nav .wrap{gap:8px;padding:8px 14px;height:auto;flex-wrap:wrap} nav .links{gap:8px;margin-left:0;width:100%;justify-content:space-between} nav .btn{padding:.45em .7em;font-size:.82rem} .tgl{width:34px;height:34px}}
+  .hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+  .hero .glow{position:absolute;inset:-40% -20% auto auto;width:70%;height:600px;background:radial-gradient(closest-side,rgba(226,162,59,.22),transparent 70%);pointer-events:none}
+  .hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding:74px 22px}
+  .hero h1{font-size:clamp(2.2rem,5vw,3.5rem);font-weight:800;letter-spacing:-.025em}
+  .hero p.lead{font-size:1.18rem;color:var(--mut);margin:1.1em 0 1.6em;max-width:34ch}
+  .hero .cta{display:flex;gap:12px;flex-wrap:wrap}
+  .hero figure{margin:0;border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:0 30px 80px -30px #000}
+  .hero figure img{width:100%;display:block}
+  @media(max-width:780px){.hero .wrap{grid-template-columns:1fr;padding:48px 22px}}
+  section{padding:62px 0;border-bottom:1px solid var(--line)}
+  section h2{font-size:clamp(1.5rem,3.4vw,2.1rem);font-weight:800;letter-spacing:-.02em}
+  section .sub{color:var(--mut);margin:.6em 0 2em;max-width:62ch}
+  .grid{display:grid;gap:16px}
+  .g3{grid-template-columns:repeat(3,1fr)} .g4{grid-template-columns:repeat(4,1fr)} .g2{grid-template-columns:repeat(2,1fr)}
+  @media(max-width:820px){.g3,.g4{grid-template-columns:1fr 1fr}}
+  @media(max-width:540px){.g2,.g3,.g4{grid-template-columns:1fr}}
+  .grid>*,.step>div{min-width:0}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}
+  .card h3{font-size:1.05rem;margin-bottom:.4em}
+  .card p{color:var(--mut);font-size:.92rem;margin:0}
+  .num{display:inline-flex;width:30px;height:30px;align-items:center;justify-content:center;border-radius:8px;background:rgba(226,162,59,.14);color:var(--amb);font-family:Sora;font-weight:800;font-size:.9rem;margin-bottom:.7em}
+  .flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:10px}
+  .flow span{background:var(--bg2);border:1px solid var(--line);border-radius:999px;padding:.45em .9em;font-size:.85rem;font-family:Sora;font-weight:600}
+  .flow .arr{color:var(--amb);border:none;background:none;padding:0 .1em}
+  pre{background:#0a0a0e;border:1px solid var(--line);border-radius:12px;padding:16px 18px;overflow:auto;font-size:.86rem;line-height:1.6;color:#d6d6e0}
+  pre .c{color:#6f6f7c} pre .k{color:var(--amb2)} pre .s{color:#9ece6a}
+  .step{display:grid;grid-template-columns:46px 1fr;gap:16px;margin-bottom:26px}
+  .step .b{width:46px;height:46px;border-radius:12px;background:var(--amb);color:#1a1206;font-family:Sora;font-weight:800;font-size:1.25rem;display:flex;align-items:center;justify-content:center}
+  .step h3{font-size:1.12rem;margin-bottom:.3em}
+  .step p{color:var(--mut);margin:.2em 0 .7em}
+  .ex{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media(max-width:680px){.ex{grid-template-columns:1fr}}
+  .ex figure{margin:0;border-radius:14px;overflow:hidden;border:1px solid var(--line)}
+  .ex figure img{width:100%;display:block}
+  .ex figcaption{padding:12px 14px;font-size:.88rem;color:var(--mut);background:var(--card)}
+  .phase{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid var(--line)}
+  .phase:last-child{border:none}
+  .phase .tag{flex:0 0 92px;font-family:Sora;font-weight:800;color:var(--amb)}
+  .phase .d strong{display:block;margin-bottom:.2em}
+  .phase .d span{color:var(--mut);font-size:.92rem}
+  footer{padding:46px 0;text-align:center;color:var(--mut);font-size:.9rem}
+  .pill{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:.3em .8em;font-size:.78rem;color:var(--mut);margin:0 4px}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <a class="brand" href="#top"><span class="emoji">🎬</span> HyperFrames Kit</a>
+  <span class="sep">|</span>
+  <span class="clubpro">
+    <a class="inema" href="https://inema.club" target="_blank" rel="noopener">INEMA.CLUB</a>
+    <span class="sep">-</span>
+    <a class="pro" href="https://inema.pro" target="_blank" rel="noopener">PRO</a>
+  </span>
+  <div class="links">
+    <a class="sec" href="#oque">What it is</a>
+    <a class="sec" href="#fluxo">Method</a>
+    <a class="sec" href="#receitas">Recipes</a>
+    <a class="sec" href="#guia">User guide</a>
+    <a class="sec" href="#roadmap">Roadmap</a>
+    <span class="lang"><a href="../">PT</a><a class="on" href="./">EN</a><a href="../es/">ES</a></span>
+    <button class="tgl" id="themeToggle" aria-label="Toggle theme" title="Toggle theme">🌙</button>
+    <a class="btn" href="https://github.com/inematds/hyperframes-student-kit" target="_blank" rel="noopener">GitHub</a>
+  </div>
+</div></nav>
+
+<header class="hero" id="top">
+  <div class="glow"></div>
+  <div class="wrap">
+    <div>
+      <span class="chip">Codex · Claude Code · HyperFrames · GSAP</span>
+      <h1>Your recording becomes a video <span class="amb">edited</span> by an agent</h1>
+      <p class="lead">It transcribes, cuts silences and mistakes, plans the scenes and builds motion graphics in animated HTML. You describe what you want in plain language, and the agent checks its own work before delivering.</p>
+      <div class="cta">
+        <a class="btn" href="#guia">Start the guide</a>
+        <a class="btn ghost" href="https://github.com/inematds/hyperframes-student-kit" target="_blank" rel="noopener">View on GitHub</a>
+      </div>
+    </div>
+    <figure><img src="../assets/hero.jpg" alt="Dark editing desk with a glowing video timeline and a film strip turning into HTML code"></figure>
+  </div>
+</header>
+
+<section id="oque"><div class="wrap">
+  <span class="chip">What it is</span>
+  <h2>A skill kit for AI video editing, in Portuguese</h2>
+  <p class="sub">Fifteen skills mirrored for Codex and Claude Code, 406 motion graphics cards in two styles, two scene templates, validators and a starter that runs without an API key.</p>
+  <div class="grid g3">
+    <div class="card"><h3>✂️ Transcript-driven cuts</h3><p>Removes silences, stutters, false starts and retakes with word-level timing. Every proposed cut is reviewed in context before it is applied.</p></div>
+    <div class="card"><h3>🧩 Motion graphics at the right moment</h3><p>Cards with CSS tokens and text slots, anchored to the exact phrase being spoken. A validator checks that each element comes in the moment you talk about it.</p></div>
+    <div class="card"><h3>🎞️ From lesson to showreel</h3><p>Full editing of lessons, reels and 9:16 Shorts, plus 15-second brand showreels cut to the timing of the music.</p></div>
+  </div>
+</div></section>
+
+<section id="fluxo"><div class="wrap">
+  <span class="chip">The method</span>
+  <h2>Five steps, in a loop until it's good</h2>
+  <p class="sub">This is the reasoning behind the kit. Each step has a skill or a script. The details are in <a href="https://github.com/inematds/hyperframes-student-kit/blob/main/docs/METODO.md" target="_blank" rel="noopener">docs/METODO.md</a> (in Portuguese).</p>
+  <div class="flow">
+    <span>1 · Transcribe</span><span class="arr">→</span>
+    <span>2 · Cut</span><span class="arr">→</span>
+    <span>3 · Plan the beats</span><span class="arr">→</span>
+    <span>4 · Use and create skills</span><span class="arr">→</span>
+    <span>5 · Verify in a loop</span>
+  </div>
+  <div class="grid g3" style="margin-top:26px">
+    <div class="card"><div class="num">1</div><h3>Transcribe</h3><p>Word-level timing: it is what makes each graphic come in at the right moment and lets the agent understand the story. ElevenLabs Scribe or local Whisper.</p></div>
+    <div class="card"><div class="num">2</div><h3>Cut</h3><p>Dead air and mistakes go before any design, with <code>cut-silences</code> and then <code>cut-mistakes</code>. Useful even if you will finish in your own editor.</p></div>
+    <div class="card"><div class="num">3</div><h3>Plan the beats</h3><p>"When I say X, show Y." The clearer the agreement, the closer you get to what you want. <code>video-storytelling</code> and <code>hyperframes-video-beats</code>.</p></div>
+    <div class="card"><div class="num">4</div><h3>Use and create skills</h3><p>Anything you repeat becomes a skill. After each round, say what you liked and what you didn't, and ask for the skill to be updated.</p></div>
+    <div class="card"><div class="num">5</div><h3>Verify in a loop</h3><p>The agent renders, extracts frames, looks, fixes and only delivers after a few passes. You get version 5, not version 1.</p></div>
+    <div class="card"><div class="num">★</div><h3>Reference → skill</h3><p>Liked a video? Measure it with <code>analyze-reference.mjs</code>, ask for an analysis of why it works and turn it into a skill. That is how <code>motion-showreel</code> was born.</p></div>
+  </div>
+</div></section>
+
+<section id="receitas"><div class="wrap">
+  <span class="chip">Prompt recipes</span>
+  <h2>What to ask for, in the right words</h2>
+  <p class="sub">Describe the result and even the emotion the video should create. The agent adds ideas of its own; review them as you would with an editor. All the recipes are in <a href="https://github.com/inematds/hyperframes-student-kit/blob/main/docs/PROMPTS.md" target="_blank" rel="noopener">docs/PROMPTS.md</a> (in Portuguese).</p>
+  <div class="grid g2">
+    <div class="card"><h3>🎯 Anchored to speech</h3><p>Each element tied to a phrase, with a position and a glass card for readability.</p><pre><span class="s">When I mention [A] and [B], show [A] where I
+point on the left and [B] on the right, with
+animated logos and a glass card behind. When I
+say "[thesis]", show the words below,
+highlighted. Check the render before delivering.</span></pre></div>
+    <div class="card"><h3>📸 Prove it live</h3><p>The agent fetches the material: records the screen, takes screenshots, uses real images and generates whatever is missing.</p><pre><span class="s">When I talk about B-roll, screenshots or image
+generation, do it for real: record the screen,
+take the screenshot, generate the image, and show
+it on the sides with a background that keeps it readable.</span></pre></div>
+    <div class="card"><h3>🖍️ One recording, three styles</h3><p>Hand-drawn whiteboard; course style with a circular camera crop and large bullet points; or a dynamic short with B-roll.</p><pre><span class="s">Edit [recording] as a lesson. The camera starts
+full screen and then sits in a circular crop.
+Minimalist background, a few large bullet points
+and simple AI-generated images.</span></pre></div>
+    <div class="card"><h3>🎉 Sizzle from a folder</h3><p>A folder of event recordings becomes a reel with the quotes that show the audience's energy.</p><pre><span class="s">Look at everything in [folder], transcribe the talks
+and build a [duration] sizzle telling the story of
+the event. Show me the quote selection first.</span></pre></div>
+    <div class="card"><h3>🛍️ Product video</h3><p>Real catalog images, photos generated from them and short videos of those photos, timed to the music.</p><pre><span class="s">Make a [duration] video for [product] with
+real catalog images. Where motion is missing,
+generate a photo and video (Kling via my subscription).
+Confirm before spending credits.</span></pre></div>
+    <div class="card"><h3>✨ Brand showreel</h3><p>The <code>motion-showreel</code> skill: a motif that transforms into chapters, a HUD, cuts on the timing grid and a logo lockup.</p><pre><span class="s">Use motion-showreel for a 15 s showreel
+of [brand]. Measure the timing grid, map the
+chapters to brand objects and show me the
+storyboard before building.</span></pre></div>
+  </div>
+</div></section>
+
+<section id="pre"><div class="wrap">
+  <span class="chip">Prerequisites</span>
+  <h2>What needs to be installed</h2>
+  <p class="sub">Node.js 22+, Git, FFmpeg with ffprobe and Chrome or Chromium. The starter and the tests need no paid key.</p>
+  <div class="grid g3">
+    <div class="card"><h3>Local tools</h3><p>Make sure they are on your terminal's PATH.</p><pre><span class="c"># versions</span>
+<span class="k">node</span> -v   <span class="c"># 22 or later</span>
+<span class="k">ffmpeg</span> -version
+<span class="k">ffprobe</span> -version</pre></div>
+    <div class="card"><h3>Assistant</h3><p>Codex (desktop app or CLI) or Claude Code. The skills are discovered automatically when you open the folder. For full edits, use high effort.</p><pre><span class="c"># Claude Code, inside the folder</span>
+<span class="k">claude</span>
+<span class="c"># Codex: New project → Local → kit folder</span></pre></div>
+    <div class="card"><h3>Services (optional)</h3><p>Transcription: ElevenLabs Scribe or local Whisper. Generated video: your Kling subscription via the <code>kling</code> CLI; Kie.ai only as a paid alternative.</p><pre><span class="c"># .env at the root</span>
+ELEVENLABS_API_KEY=<span class="s">your-key</span>
+<span class="c"># Kling: no key, OAuth login</span>
+<span class="k">kling login</span></pre></div>
+  </div>
+</div></section>
+
+<section id="guia"><div class="wrap">
+  <span class="chip">User guide · step by step</span>
+  <h2>From clone to your first edited video</h2>
+  <p class="sub">The commands below are the ones from the repository. In Codex use <code>$skill</code>; in Claude Code, <code>/skill</code>.</p>
+
+  <div class="step"><div class="b">1</div><div>
+    <h3>Install the kit</h3>
+    <p>Clone it, install the pinned dependencies (HyperFrames 0.7.109 and GSAP 3.14.2), check the tools and run the tests.</p>
+<pre><span class="k">git clone</span> <span class="s">https://github.com/inematds/hyperframes-student-kit.git</span>
+<span class="k">cd</span> hyperframes-student-kit
+<span class="k">npm ci</span>
+<span class="k">npm run setup</span>   <span class="c"># checks node, ffmpeg, chrome and creates the .env</span>
+<span class="k">npm test</span>        <span class="c"># tests without an API key</span></pre>
+  </div></div>
+
+  <div class="step"><div class="b">2</div><div>
+    <h3>Render the example without a recording</h3>
+    <p>Creates a project with the synthetic composition, opens the Studio for scrubbing and renders an eight-second MP4.</p>
+<pre><span class="k">npm run demo</span>
+<span class="k">cd</span> video-projects/demo
+<span class="k">npx hyperframes lint</span>
+<span class="k">npx hyperframes preview</span>   <span class="c"># Studio on localhost; Ctrl+C to exit</span>
+<span class="k">npx hyperframes render</span> --quality draft --output renders/demo.mp4</pre>
+  </div></div>
+
+  <div class="step"><div class="b">3</div><div>
+    <h3>Transcribe</h3>
+    <p>In ElevenLabs: Developers → API keys → create a key restricted to speech_to_text and paste it into the <code>.env</code>. If you prefer local Whisper, tell the assistant and it will set it up.</p>
+<pre><span class="c"># transcription with word-level timing, next to the video</span>
+<span class="k">node</span> scripts/transcribe-elevenlabs.mjs video-projects/meu-video/assets/raw.mp4</pre>
+  </div></div>
+
+  <div class="step"><div class="b">4</div><div>
+    <h3>Ask for the edit with anchored beats</h3>
+    <p>Create the project, put the recording in <code>assets/raw.mp4</code> and say what appears at each line. The more specific you are, the closer it gets to what you imagine.</p>
+<pre><span class="k">npm run new-video</span> -- meu-video
+<span class="c"># in the assistant:</span>
+<span class="s">Use edit-video on video-projects/meu-video/assets/raw.mp4. Cut pauses and mistakes and
+show me the mistake cuts. When I say "[phrase]", show [element] on the right
+with a glass card behind it. Dark graph-paper style. Verify before delivering.</span></pre>
+  </div></div>
+
+  <div class="step"><div class="b">5</div><div>
+    <h3>Or one step at a time</h3>
+    <p>Silences first, then the mistake review using the already-cut video and the retimed transcript. Never mix original timings with the edited video.</p>
+<pre><span class="k">node</span> .claude/skills/cut-silences/scripts/cut-silences.mjs assets/raw.json --video assets/raw.mp4 --out-dir assets --output assets/silenced.mp4 --apply
+<span class="k">node</span> .claude/skills/cut-mistakes/scripts/find-cut-candidates.mjs assets/raw.silence-transcript.json --out-dir assets
+<span class="c"># review, write approved-cuts.json, then:</span>
+<span class="k">node</span> .claude/skills/cut-mistakes/scripts/apply-cuts.mjs assets/raw.silence-transcript.json --cuts assets/approved-cuts.json --video assets/silenced.mp4 --out-dir assets --output assets/clean.mp4 --apply</pre>
+  </div></div>
+
+  <div class="step"><div class="b">6</div><div>
+    <h3>Reel or Short in 9:16</h3>
+    <p>The short-form flow plans hook and payoff, exact captions and B-roll, and has plan and footage validators.</p>
+<pre><span class="s">Use short-form-edit to turn video-projects/meu-reel/assets/raw.mp4 into a 9:16 reel.
+A genuine hook, precise captions, purposeful B-roll and sound design. Prepare a draft.</span>
+<span class="k">npm run validate:short-form</span> -- video-projects/meu-reel
+<span class="k">npm run validate:footage</span> -- video-projects/meu-reel</pre>
+  </div></div>
+
+  <div class="step"><div class="b">7</div><div>
+    <h3>Showreel cut to the music</h3>
+    <p>Measure the music's timing grid (your own or free music), generate the frame sheet and let the skill assemble the chapters. The audio scripts are local, FFmpeg only.</p>
+<pre><span class="k">node</span> .claude/skills/motion-showreel/scripts/music-grid.mjs assets/audio/musica.mp3 --bpm 128 --beats
+<span class="k">node</span> .claude/skills/motion-showreel/scripts/beatgrid.mjs --period 0.4644 --length 15 --chapters <span class="s">"01 Physics:4, 02 Type:8, Flurry:4, 07 End:rest"</span>
+<span class="k">node</span> .claude/skills/motion-showreel/scripts/mix.mjs --bed music-bed.wav --events events.json --out master.wav</pre>
+  </div></div>
+
+  <div class="step"><div class="b">8</div><div>
+    <h3>Verify, give feedback and turn it into a skill</h3>
+    <p>Run preflight and lint, review in the Studio, render the draft and watch it. Give concrete feedback. When you like a result, or someone else's video, ask for it to become a skill and sync the Codex mirror.</p>
+<pre><span class="k">node</span> scripts/preflight.mjs video-projects/meu-video
+<span class="k">node</span> scripts/validate-beat-sync.mjs video-projects/meu-video
+<span class="k">node</span> .claude/skills/motion-showreel/scripts/analyze-reference.mjs referencia.mp4 qa/ref --fps 6 --bpm 128
+<span class="k">npm run sync:skills</span>   <span class="c"># after editing .claude/skills/</span></pre>
+  </div></div>
+</div></section>
+
+<section id="exemplos"><div class="wrap">
+  <span class="chip">Examples</span>
+  <h2>What comes out of the kit</h2>
+  <p class="sub">Framing and concept references. The presenter photos in the repository are simulated; bring your own recording for the exercises.</p>
+  <div class="ex">
+    <figure><img src="../assets/ex1.jpg" alt="Presenter in a studio, 9:16 framing"><figcaption>9:16 talking-head framing: the starting point of a reel with word-by-word captions and cards in the upper third.</figcaption></figure>
+    <figure><img src="../assets/ex2.jpg" alt="Cover: it's over, it's the end of an era"><figcaption>Cover of the video tutorial that accompanies the kit. The translated transcript, the quick guide and the method are in <code>docs/</code>.</figcaption></figure>
+  </div>
+</div></section>
+
+<section id="roadmap"><div class="wrap">
+  <span class="chip">Roadmap</span>
+  <h2>Where the kit is and where it's going</h2>
+  <p class="sub">The kit brings together the editing pipeline, the skills from the original and the method from the tutorial. The next steps are examples and styles in Portuguese.</p>
+  <div class="phase"><div class="tag">Done</div><div class="d"><strong>Translation and neutralization</strong><span>Documentation, working guide and tutorial transcript in PT-BR; simulated presenter photos; synced skills and 406 validated cards.</span></div></div>
+  <div class="phase"><div class="tag">Done</div><div class="d"><strong>motion-showreel skill</strong><span>Brought over from the original kit (Sep 2026) and translated: showreels cut to the music, with free music and SFX and the hero object via the Kling subscription; Kie.ai and ElevenLabs as paid options.</span></div></div>
+  <div class="phase"><div class="tag">Done</div><div class="d"><strong>Method and recipes</strong><span>The five steps, the speech-anchored prompt, one recording in three styles, folder sizzle, product video and the reference → skill loop, in <code>docs/METODO.md</code> and <code>docs/PROMPTS.md</code>.</span></div></div>
+  <div class="phase"><div class="tag">Next</div><div class="d"><strong>Complete example in Portuguese</strong><span>A lesson recording edited end to end with the kit, with VERIFY.md and a reference render.</span></div></div>
+  <div class="phase"><div class="tag">Later</div><div class="d"><strong>New styles in the library</strong><span>INEMA dark amber, whiteboard and course style as card styles, with tokens, DESIGN.md and previews.</span></div></div>
+</div></section>
+
+<footer>
+  <div class="wrap">
+    <div class="pill">HyperFrames</div><div class="pill">GSAP</div><div class="pill">Node 22</div><div class="pill">FFmpeg</div>
+    <p style="margin-top:18px">HyperFrames Student Kit · video editing with agents, local, docs in Portuguese ·
+      <a href="https://github.com/inematds/hyperframes-student-kit">inematds/hyperframes-student-kit</a> ·
+      <a href="https://inema.club">INEMA.CLUB</a></p>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var KEY='hyperframes-student-kit-theme';
+    var b=document.body, t=document.getElementById('themeToggle');
+    try{ if(localStorage.getItem(KEY)==='light'){ b.classList.add('light'); t.textContent='☀️'; } }catch(e){}
+    t.addEventListener('click',function(){
+      var light=b.classList.toggle('light');
+      t.textContent=light?'☀️':'🌙';
+      try{ localStorage.setItem(KEY, light?'light':'dark'); }catch(e){}
+    });
+  })();
+</script>
+</body>
+</html>

@@ -3,8 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>HyperFrames Student Kit — edição de vídeo com IA no Codex e no Claude Code</title>
-<meta name="description" content="Kit de skills para transformar uma gravação em vídeo editado com motion graphics: transcrição, cortes, beats, HyperFrames e GSAP, tudo local. Guia de instalação e uso em português.">
+<title>HyperFrames Student Kit — edição de vídeo com agentes</title>
+<meta name="description" content="Kit de skills para transformar uma gravação em vídeo editado com motion graphics: transcrição, cortes, beats ancorados na fala, showreels e verificação em ciclo, com HyperFrames e GSAP. Guia em português.">
+<link rel="alternate" hreflang="pt-BR" href="https://inematds.github.io/hyperframes-student-kit/guia/">
+<link rel="alternate" hreflang="en" href="https://inematds.github.io/hyperframes-student-kit/guia/en/">
+<link rel="alternate" hreflang="es" href="https://inematds.github.io/hyperframes-student-kit/guia/es/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
@@ -43,11 +46,14 @@
   nav .clubpro{display:inline-flex;align-items:center;gap:6px}
   nav .links{margin-left:auto;display:flex;align-items:center;gap:20px;font-size:.92rem}
   nav .links a.sec{color:var(--mut)} nav .links a.sec:hover{color:var(--txt)}
+  .lang{display:inline-flex;gap:2px;font-family:Sora;font-size:.78rem}
+  .lang a{color:var(--mut);padding:.2em .45em;border-radius:6px} .lang a.on{color:var(--amb);background:rgba(226,162,59,.12)}
   .tgl{background:var(--bg2);border:1px solid var(--line);color:var(--txt);width:38px;height:38px;border-radius:10px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-size:1.05rem}
   .tgl:hover{border-color:var(--amb)}
   .btn{display:inline-block;background:var(--amb);color:#1a1206;font-weight:600;padding:.6em 1.05em;border-radius:10px;font-family:Sora}
   .btn.ghost{background:transparent;color:var(--txt);border:1px solid var(--line)}
   @media(max-width:760px){nav .links a.sec{display:none}}
+  @media(max-width:520px){nav .wrap{gap:8px;padding:8px 14px;height:auto;flex-wrap:wrap} nav .links{gap:8px;margin-left:0;width:100%;justify-content:space-between} nav .btn{padding:.45em .7em;font-size:.82rem} .tgl{width:34px;height:34px}}
   .hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
   .hero .glow{position:absolute;inset:-40% -20% auto auto;width:70%;height:600px;background:radial-gradient(closest-side,rgba(226,162,59,.22),transparent 70%);pointer-events:none}
   .hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding:74px 22px}
@@ -64,6 +70,7 @@
   .g3{grid-template-columns:repeat(3,1fr)} .g4{grid-template-columns:repeat(4,1fr)} .g2{grid-template-columns:repeat(2,1fr)}
   @media(max-width:820px){.g3,.g4{grid-template-columns:1fr 1fr}}
   @media(max-width:540px){.g2,.g3,.g4{grid-template-columns:1fr}}
+  .grid>*,.step>div{min-width:0}
   .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}
   .card h3{font-size:1.05rem;margin-bottom:.4em}
   .card p{color:var(--mut);font-size:.92rem;margin:0}
@@ -94,7 +101,7 @@
 <body>
 
 <nav><div class="wrap">
-  <a class="brand" href="#top"><span class="emoji">🎬</span> HyperFrames Student Kit</a>
+  <a class="brand" href="#top"><span class="emoji">🎬</span> HyperFrames Kit</a>
   <span class="sep">|</span>
   <span class="clubpro">
     <a class="inema" href="https://inema.club" target="_blank" rel="noopener">INEMA.CLUB</a>
@@ -103,10 +110,11 @@
   </span>
   <div class="links">
     <a class="sec" href="#oque">O que é</a>
-    <a class="sec" href="#fluxo">Como funciona</a>
+    <a class="sec" href="#fluxo">Método</a>
+    <a class="sec" href="#receitas">Receitas</a>
     <a class="sec" href="#guia">Guia de uso</a>
-    <a class="sec" href="#exemplos">Exemplos</a>
     <a class="sec" href="#roadmap">Roadmap</a>
+    <span class="lang"><a class="on" href="./">PT</a><a href="en/">EN</a><a href="es/">ES</a></span>
     <button class="tgl" id="themeToggle" aria-label="Alternar tema" title="Alternar tema">🌙</button>
     <a class="btn" href="https://github.com/inematds/hyperframes-student-kit" target="_blank" rel="noopener">GitHub</a>
   </div>
@@ -118,13 +126,13 @@
     <div>
       <span class="chip">Codex · Claude Code · HyperFrames · GSAP</span>
       <h1>Sua gravação vira um vídeo <span class="amb">editado</span> por um agente</h1>
-      <p class="lead">Transcreve, corta silêncios e erros, planeja as cenas e monta motion graphics em HTML animado. Tudo roda na sua máquina; você só descreve o que quer.</p>
+      <p class="lead">Transcreve, corta silêncios e erros, planeja as cenas e monta motion graphics em HTML animado. Você descreve o que quer, em português, e o agente verifica o próprio trabalho antes de entregar.</p>
       <div class="cta">
         <a class="btn" href="#guia">Começar o guia</a>
         <a class="btn ghost" href="https://github.com/inematds/hyperframes-student-kit" target="_blank" rel="noopener">Ver no GitHub</a>
       </div>
     </div>
-    <figure><img src="assets/hero.jpg" alt="Estúdio de gravação com câmera em dolly e iluminação"></figure>
+    <figure><img src="assets/hero.jpg" alt="Mesa de edição escura com uma timeline de vídeo brilhando e uma película que vira código HTML"></figure>
   </div>
 </header>
 
@@ -134,27 +142,61 @@
   <p class="sub">Quinze skills espelhadas para Codex e Claude Code, 406 cards de motion graphics em dois estilos, dois templates de cena, validadores e um starter que roda sem chave de API.</p>
   <div class="grid g3">
     <div class="card"><h3>✂️ Cortes guiados por transcrição</h3><p>Remove silêncios, gagueiras, falsos começos e retakes com marcação por palavra. Cada corte proposto é revisado em contexto antes de aplicar.</p></div>
-    <div class="card"><h3>🧩 Motion graphics reutilizáveis</h3><p>Cards com tokens CSS e slots de texto, templates de papel quadriculado escuro e glass popout, tudo animado com GSAP e renderizado pelo HyperFrames.</p></div>
-    <div class="card"><h3>📱 Reels, Shorts e vídeos longos</h3><p>Fluxo dedicado para 9:16 com gancho, recompensa, legendas precisas e B-roll, e outro para a edição completa de uma aula ou tutorial.</p></div>
+    <div class="card"><h3>🧩 Motion graphics na hora certa</h3><p>Cards com tokens CSS e slots de texto, ancorados na frase exata da fala. Um validador confere se cada elemento entra no momento em que você fala dele.</p></div>
+    <div class="card"><h3>🎞️ Da aula ao showreel</h3><p>Edição completa de aulas, reels e Shorts 9:16, e showreels de marca de 15 segundos cortados no tempo da música.</p></div>
   </div>
 </div></section>
 
 <section id="fluxo"><div class="wrap">
-  <span class="chip">Como funciona</span>
-  <h2>Cinco etapas, em loop até ficar pronto</h2>
-  <p class="sub">O agente transcreve, corta, planeja os beats (cada cena é um beat), gera as cenas em HTML animado e verifica o resultado com screenshots e escuta das junções. Se algo estiver fora, volta e ajusta.</p>
+  <span class="chip">O método</span>
+  <h2>Cinco etapas, em ciclo até ficar bom</h2>
+  <p class="sub">É o raciocínio por trás do kit. Cada etapa tem uma skill ou um script. O detalhe está em <a href="https://github.com/inematds/hyperframes-student-kit/blob/main/docs/METODO.md" target="_blank" rel="noopener">docs/METODO.md</a>.</p>
   <div class="flow">
-    <span>Transcrever</span><span class="arr">→</span>
-    <span>Cortar silêncios e erros</span><span class="arr">→</span>
-    <span>Planejar beats</span><span class="arr">→</span>
-    <span>Gerar HTML + GSAP</span><span class="arr">→</span>
-    <span>Verificar e renderizar</span>
+    <span>1 · Transcrever</span><span class="arr">→</span>
+    <span>2 · Cortar</span><span class="arr">→</span>
+    <span>3 · Planejar os beats</span><span class="arr">→</span>
+    <span>4 · Usar e criar skills</span><span class="arr">→</span>
+    <span>5 · Verificar em ciclo</span>
   </div>
-  <div class="grid g4" style="margin-top:26px">
-    <div class="card"><h3>edit-video</h3><p>Orquestra a edição completa de uma gravação: transcrição, cortes, história, cards e verificação.</p></div>
-    <div class="card"><h3>short-form-edit</h3><p>Reels e Shorts 1080x1920 com plano de cenas, legendas por palavra, ledger de footage e validadores.</p></div>
-    <div class="card"><h3>cut-silences · cut-mistakes</h3><p>Uma etapa só: tirar pausas ou revisar erros. Sempre nessa ordem, com a transcrição retemporizada.</p></div>
-    <div class="card"><h3>motion-showreel</h3><p>Showreel de marca de 10 a 30 s: um motivo transformado em capítulos, HUD persistente e cortes na grade de tempos da música. Objeto herói pela assinatura Kling.</p></div>
+  <div class="grid g3" style="margin-top:26px">
+    <div class="card"><div class="num">1</div><h3>Transcrever</h3><p>Tempo por palavra: é o que faz cada gráfico entrar na hora certa e o agente entender a história. ElevenLabs Scribe ou Whisper local.</p></div>
+    <div class="card"><div class="num">2</div><h3>Cortar</h3><p>Ar morto e erros saem antes de qualquer design, com <code>cut-silences</code> e depois <code>cut-mistakes</code>. Serve até se você for terminar no seu editor.</p></div>
+    <div class="card"><div class="num">3</div><h3>Planejar os beats</h3><p>"Quando eu disser X, mostre Y." Quanto mais claro o combinado, mais perto do que você quer. <code>video-storytelling</code> e <code>hyperframes-video-beats</code>.</p></div>
+    <div class="card"><div class="num">4</div><h3>Usar e criar skills</h3><p>Tudo o que você repete vira skill. A cada rodada, diga o que gostou e o que não gostou e mande atualizar a skill.</p></div>
+    <div class="card"><div class="num">5</div><h3>Verificar em ciclo</h3><p>O agente renderiza, extrai quadros, olha, corrige e só entrega depois de algumas voltas. Você recebe a versão 5, não a 1.</p></div>
+    <div class="card"><div class="num">★</div><h3>Referência → skill</h3><p>Gostou de um vídeo? Meça com <code>analyze-reference.mjs</code>, peça a análise do porquê funciona e transforme em skill. Assim nasceu a <code>motion-showreel</code>.</p></div>
+  </div>
+</div></section>
+
+<section id="receitas"><div class="wrap">
+  <span class="chip">Receitas de prompt</span>
+  <h2>O que pedir, com as palavras certas</h2>
+  <p class="sub">Descreva o resultado e até a emoção que o vídeo deve causar. O agente acrescenta ideias próprias; revise como faria com um editor. Todas as receitas estão em <a href="https://github.com/inematds/hyperframes-student-kit/blob/main/docs/PROMPTS.md" target="_blank" rel="noopener">docs/PROMPTS.md</a>.</p>
+  <div class="grid g2">
+    <div class="card"><h3>🎯 Ancorado na fala</h3><p>Cada elemento amarrado a uma frase, com posição e card de vidro para dar leitura.</p><pre><span class="s">Quando eu citar [A] e [B], mostre [A] onde eu
+aponto à esquerda e [B] à direita, com os logos
+animados e um card de vidro atrás. Quando eu
+disser "[tese]", mostre as palavras embaixo,
+destacadas. Verifique o render antes de entregar.</span></pre></div>
+    <div class="card"><h3>📸 Provar ao vivo</h3><p>O agente busca o material: grava a tela, tira screenshots, usa imagens reais e gera o que faltar.</p><pre><span class="s">Quando eu falar de B-roll, screenshots ou geração
+de imagem, faça de verdade: grave a tela, tire o
+screenshot, gere a imagem, e mostre nas laterais
+com um fundo que garanta a leitura.</span></pre></div>
+    <div class="card"><h3>🖍️ Uma gravação, três estilos</h3><p>Quadro branco desenhado à mão; estilo curso com câmera em círculo e tópicos grandes; ou short dinâmico com B-roll.</p><pre><span class="s">Edite [gravação] como aula. A câmera começa em
+tela cheia e depois fica num recorte circular.
+Fundo minimalista, poucos tópicos grandes e
+imagens simples geradas por IA.</span></pre></div>
+    <div class="card"><h3>🎉 Sizzle de uma pasta</h3><p>Uma pasta de gravações de evento vira um reel com as falas que mostram a energia do público.</p><pre><span class="s">Veja tudo em [pasta], transcreva as falas e monte
+um sizzle de [duração] contando a história do
+evento. Me mostre a seleção de falas antes.</span></pre></div>
+    <div class="card"><h3>🛍️ Vídeo de produto</h3><p>Imagens reais do catálogo, fotos geradas a partir delas e vídeos curtos dessas fotos, no tempo da música.</p><pre><span class="s">Faça um vídeo de [duração] para [produto] com
+imagens reais do catálogo. Onde faltar movimento,
+gere foto e vídeo (Kling pela minha assinatura).
+Confirme antes de gastar créditos.</span></pre></div>
+    <div class="card"><h3>✨ Showreel de marca</h3><p>A skill <code>motion-showreel</code>: um motivo que se transforma em capítulos, HUD, cortes na grade de tempos e lockup do logo.</p><pre><span class="s">Use motion-showreel para um showreel de 15 s
+de [marca]. Meça a grade de tempos, mapeie os
+capítulos para objetos da marca e me mostre o
+storyboard antes de construir.</span></pre></div>
   </div>
 </div></section>
 
@@ -167,11 +209,13 @@
 <span class="k">node</span> -v   <span class="c"># 22 ou mais</span>
 <span class="k">ffmpeg</span> -version
 <span class="k">ffprobe</span> -version</pre></div>
-    <div class="card"><h3>Assistente</h3><p>Codex (app desktop ou CLI) ou Claude Code. As skills são descobertas sozinhas ao abrir a pasta.</p><pre><span class="c"># Claude Code, dentro da pasta</span>
+    <div class="card"><h3>Assistente</h3><p>Codex (app desktop ou CLI) ou Claude Code. As skills são descobertas sozinhas ao abrir a pasta. Para edições completas, use esforço alto.</p><pre><span class="c"># Claude Code, dentro da pasta</span>
 <span class="k">claude</span>
 <span class="c"># Codex: New project → Local → pasta do kit</span></pre></div>
-    <div class="card"><h3>Transcrição (opcional)</h3><p>ElevenLabs Scribe é o padrão. Whisper local ou OpenAI Whisper são alternativas; peça ao assistente.</p><pre><span class="c"># .env na raiz</span>
-ELEVENLABS_API_KEY=<span class="s">sua-chave</span></pre></div>
+    <div class="card"><h3>Serviços (opcionais)</h3><p>Transcrição: ElevenLabs Scribe ou Whisper local. Vídeo gerado: sua assinatura Kling pelo CLI <code>kling</code>; Kie.ai só como alternativa paga.</p><pre><span class="c"># .env na raiz</span>
+ELEVENLABS_API_KEY=<span class="s">sua-chave</span>
+<span class="c"># Kling: sem chave, login OAuth</span>
+<span class="k">kling login</span></pre></div>
   </div>
 </div></section>
 
@@ -187,7 +231,7 @@ ELEVENLABS_API_KEY=<span class="s">sua-chave</span></pre></div>
 <span class="k">cd</span> hyperframes-student-kit
 <span class="k">npm ci</span>
 <span class="k">npm run setup</span>   <span class="c"># checa node, ffmpeg, chrome e cria o .env</span>
-<span class="k">npm test</span>        <span class="c"># 11 testes, sem chave de API</span></pre>
+<span class="k">npm test</span>        <span class="c"># testes sem chave de API</span></pre>
   </div></div>
 
   <div class="step"><div class="b">2</div><div>
@@ -201,20 +245,20 @@ ELEVENLABS_API_KEY=<span class="s">sua-chave</span></pre></div>
   </div></div>
 
   <div class="step"><div class="b">3</div><div>
-    <h3>Configurar a transcrição</h3>
-    <p>Na ElevenLabs: Developers → API keys → crie uma chave restrita a speech_to_text e cole no <code>.env</code>. Se preferir Whisper, diga ao assistente e ele configura.</p>
+    <h3>Transcrever</h3>
+    <p>Na ElevenLabs: Developers → API keys → crie uma chave restrita a speech_to_text e cole no <code>.env</code>. Se preferir Whisper local, diga ao assistente e ele configura.</p>
 <pre><span class="c"># transcrição com marcação por palavra, ao lado do vídeo</span>
 <span class="k">node</span> scripts/transcribe-elevenlabs.mjs video-projects/meu-video/assets/raw.mp4</pre>
   </div></div>
 
   <div class="step"><div class="b">4</div><div>
-    <h3>Pedir a edição completa</h3>
-    <p>Crie o projeto, coloque a gravação em <code>assets/raw.mp4</code> e descreva o resultado. Quanto mais específico (estilo, cenas, onde entra cada elemento), mais próximo do que você imagina.</p>
+    <h3>Pedir a edição com beats ancorados</h3>
+    <p>Crie o projeto, coloque a gravação em <code>assets/raw.mp4</code> e diga o que aparece em cada fala. Quanto mais específico, mais perto do que você imagina.</p>
 <pre><span class="k">npm run new-video</span> -- meu-video
 <span class="c"># no assistente:</span>
-<span class="s">Use edit-video em video-projects/meu-video/assets/raw.mp4. Corte pausas e erros,
-proponha os cortes de erro para eu revisar, planeje a história e monte um draft
-com o estilo papel quadriculado escuro e glass cards ocasionais.</span></pre>
+<span class="s">Use edit-video em video-projects/meu-video/assets/raw.mp4. Corte pausas e erros e
+me mostre os cortes de erro. Quando eu disser "[frase]", mostre [elemento] à direita
+com um card de vidro atrás. Estilo papel quadriculado escuro. Verifique antes de entregar.</span></pre>
   </div></div>
 
   <div class="step"><div class="b">5</div><div>
@@ -236,10 +280,19 @@ Gancho verdadeiro, legendas precisas, B-roll com propósito e sound design. Prep
   </div></div>
 
   <div class="step"><div class="b">7</div><div>
+    <h3>Showreel cortado na música</h3>
+    <p>Meça a grade de tempos da música (sua ou gratuita), gere a folha de quadros e deixe a skill montar os capítulos. Os scripts de áudio são locais, só FFmpeg.</p>
+<pre><span class="k">node</span> .claude/skills/motion-showreel/scripts/music-grid.mjs assets/audio/musica.mp3 --bpm 128 --beats
+<span class="k">node</span> .claude/skills/motion-showreel/scripts/beatgrid.mjs --period 0.4644 --length 15 --chapters <span class="s">"01 Physics:4, 02 Type:8, Flurry:4, 07 End:rest"</span>
+<span class="k">node</span> .claude/skills/motion-showreel/scripts/mix.mjs --bed music-bed.wav --events events.json --out master.wav</pre>
+  </div></div>
+
+  <div class="step"><div class="b">8</div><div>
     <h3>Verificar, dar feedback e virar skill</h3>
-    <p>Rode preflight e lint, revise no Studio, renderize o draft e assista. Devolva feedback concreto como faria com um editor. Quando o resultado ficar do seu jeito, peça para virar uma skill e sincronize o espelho do Codex.</p>
+    <p>Rode preflight e lint, revise no Studio, renderize o draft e assista. Devolva feedback concreto. Quando gostar de um resultado, ou de um vídeo de outra pessoa, peça para virar skill e sincronize o espelho do Codex.</p>
 <pre><span class="k">node</span> scripts/preflight.mjs video-projects/meu-video
 <span class="k">node</span> scripts/validate-beat-sync.mjs video-projects/meu-video
+<span class="k">node</span> .claude/skills/motion-showreel/scripts/analyze-reference.mjs referencia.mp4 qa/ref --fps 6 --bpm 128
 <span class="k">npm run sync:skills</span>   <span class="c"># depois de editar .claude/skills/</span></pre>
   </div></div>
 </div></section>
@@ -250,18 +303,19 @@ Gancho verdadeiro, legendas precisas, B-roll com propósito e sound design. Prep
   <p class="sub">Referências de enquadramento e da proposta. As fotos de apresentador do repositório são simuladas; traga sua própria gravação para os exercícios.</p>
   <div class="ex">
     <figure><img src="assets/ex1.jpg" alt="Apresentadora em estúdio, enquadramento 9:16"><figcaption>Enquadramento 9:16 de talking-head: o ponto de partida de um reel com legendas por palavra e cards no terço superior.</figcaption></figure>
-    <figure><img src="assets/ex2.jpg" alt="Capa: acabou, é o fim de uma era"><figcaption>Capa do tutorial em vídeo que acompanha o kit. A transcrição traduzida e o guia rápido estão em <code>docs/</code>.</figcaption></figure>
+    <figure><img src="assets/ex2.jpg" alt="Capa: acabou, é o fim de uma era"><figcaption>Capa do tutorial em vídeo que acompanha o kit. A transcrição traduzida, o guia rápido e o método estão em <code>docs/</code>.</figcaption></figure>
   </div>
 </div></section>
 
 <section id="roadmap"><div class="wrap">
   <span class="chip">Roadmap</span>
   <h2>Onde o kit está e para onde vai</h2>
-  <p class="sub">A versão 2 consolidou o pipeline e o kit original num repositório só. Os próximos passos são de curadoria e de exemplos em português.</p>
-  <div class="phase"><div class="tag">Feito</div><div class="d"><strong>Tradução e neutralização</strong><span>Documentação, guia de trabalho e transcrição do tutorial em PT-BR; fotos de apresentador simuladas; 14 skills sincronizadas e 406 cards validados.</span></div></div>
+  <p class="sub">O kit junta o pipeline de edição, as skills do original e o método do tutorial. Os próximos passos são exemplos e estilos em português.</p>
+  <div class="phase"><div class="tag">Feito</div><div class="d"><strong>Tradução e neutralização</strong><span>Documentação, guia de trabalho e transcrição do tutorial em PT-BR; fotos de apresentador simuladas; skills sincronizadas e 406 cards validados.</span></div></div>
   <div class="phase"><div class="tag">Feito</div><div class="d"><strong>Skill motion-showreel</strong><span>Trazida do kit original (set/2026) e traduzida: showreels cortados na música, com música e SFX gratuitos e o objeto herói pela assinatura Kling; Kie.ai e ElevenLabs como opções pagas.</span></div></div>
+  <div class="phase"><div class="tag">Feito</div><div class="d"><strong>Método e receitas</strong><span>As cinco etapas, o prompt ancorado na fala, uma gravação em três estilos, sizzle de pasta, vídeo de produto e o ciclo referência → skill, em <code>docs/METODO.md</code> e <code>docs/PROMPTS.md</code>.</span></div></div>
   <div class="phase"><div class="tag">Próximo</div><div class="d"><strong>Exemplo completo em português</strong><span>Uma gravação de aula editada de ponta a ponta com o kit, com VERIFY.md e render de referência.</span></div></div>
-  <div class="phase"><div class="tag">Depois</div><div class="d"><strong>Estilo INEMA na biblioteca</strong><span>Um terceiro estilo de cards (dark âmbar) com tokens, DESIGN.md e previews, além de skills de transcrição local por padrão.</span></div></div>
+  <div class="phase"><div class="tag">Depois</div><div class="d"><strong>Novos estilos na biblioteca</strong><span>Dark âmbar INEMA, quadro branco e estilo curso como estilos de cards, com tokens, DESIGN.md e previews.</span></div></div>
 </div></section>
 
 <footer>
@@ -277,11 +331,11 @@ Gancho verdadeiro, legendas precisas, B-roll com propósito e sound design. Prep
   (function(){
     var KEY='hyperframes-student-kit-theme';
     var b=document.body, t=document.getElementById('themeToggle');
-    if(localStorage.getItem(KEY)==='light'){ b.classList.add('light'); t.textContent='☀️'; }
+    try{ if(localStorage.getItem(KEY)==='light'){ b.classList.add('light'); t.textContent='☀️'; } }catch(e){}
     t.addEventListener('click',function(){
       var light=b.classList.toggle('light');
       t.textContent=light?'☀️':'🌙';
-      localStorage.setItem(KEY, light?'light':'dark');
+      try{ localStorage.setItem(KEY, light?'light':'dark'); }catch(e){}
     });
   })();
 </script>

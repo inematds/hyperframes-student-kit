@@ -16,6 +16,8 @@ padrões de carregamento de documentos. Trabalhe localmente, a menos que o usuá
 
 Leia `README.md` para a instalação, `docs/GUIA-RAPIDO.md` para o passo a passo inicial
 e `docs/WORKFLOW.md` para uma edição completa.
+O método em cinco etapas (transcrever, cortar, planejar beats, skills, verificar em ciclo)
+e as receitas de prompt ancorado na fala estão em `docs/METODO.md` e `docs/PROMPTS.md`.
 Use `edit-video` para coordenar transcrição, cortes, design e verificação.
 Para uma única etapa, carregue a skill local correspondente:
 

@@ -1,5 +1,7 @@
 # HyperFrames Student Kit
 
+**🇧🇷 [Português](README.md) · 🇺🇸 [English](README.en.md) · 🇪🇸 [Español](README.es.md)**
+
 Kit reutilizável de edição de vídeo para **Codex e Claude Code**.
 Traga sua própria gravação. Corte o ar morto, revise os erros, planeje a história e
 construa motion graphics com HyperFrames e GSAP.
@@ -14,6 +16,11 @@ Guia completo (landing + passo a passo): **https://inematds.github.io/hyperframe
 projeto no Codex ou no Claude Code, chave da ElevenLabs, o prompt do primeiro vídeo,
 loop de feedback e como transformar o resultado em skill. A
 [transcrição do tutorial em vídeo](docs/TRANSCRICAO-TUTORIAL.md) está traduzida.
+
+**O método:** as cinco etapas (transcrever, cortar, planejar os beats, usar e criar skills,
+verificar em ciclo), o prompt ancorado na fala, uma gravação em três estilos, sizzle de
+pasta, vídeo de produto e o ciclo referência → skill estão em [docs/METODO.md](docs/METODO.md)
+e as receitas prontas em [docs/PROMPTS.md](docs/PROMPTS.md).
 
 ## Exemplos de vídeo curto
 
