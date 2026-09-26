@@ -35,6 +35,7 @@ Para uma única etapa, carregue a skill local correspondente:
 | Preview, lint e renderização | `hyperframes-cli` |
 | Animação de timeline | `gsap` |
 | Instalar blocos do catálogo HyperFrames | `hyperframes-registry` |
+| Showreels de motion design e brand reels cortados na música | `motion-showreel` |
 
 Antes de uma sessão criativa, leia `MOTION_PHILOSOPHY.md` e o DESIGN.md do projeto.
 O ritmo acelerado de sizzle da filosofia é uma referência de estilo. Dê à fala educativa

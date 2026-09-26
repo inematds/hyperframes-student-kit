@@ -33,7 +33,7 @@ Os quadros abaixo são fotos simuladas de apresentador, usadas como referência 
 
 ## O que está incluído
 
-- **14 skills**, espelhadas para os dois assistentes, com seus scripts auxiliares e referências.
+- **15 skills**, espelhadas para os dois assistentes, com seus scripts auxiliares e referências.
 - **406 cards de motion graphics em rascunho** em dois estilos, com manifestos, tokens CSS e slots editáveis.
 - **Dois templates de cena:** papel quadriculado escuro e um popout de vidro à esquerda.
 - Ferramentas de transcrição, corte de silêncios, detecção de erros, renderização dos cortes revisados,
@@ -117,6 +117,20 @@ A skill inclui referências de planejamento e validadores para timing de legenda
 de fontes, cobertura de cenas e reuso de imagens. É um fluxo guiado por agente;
 revise o movimento e o áudio reais antes de publicar.
 [Passo a passo de vídeo curto e comandos de validação](docs/SHORT-FORM.md).
+
+## Crie um showreel de motion design
+
+> Use motion-showreel para criar um showreel de 15 segundos para [marca]. Estude meu reel
+> de referência em [caminho local], se eu der um. Escolha um motivo que se transforme em
+> todos os capítulos, corte na grade de tempos da música e termine no logo. Me mostre o
+> storyboard e a folha de tempos antes de construir, e confirme antes de qualquer geração paga.
+
+Codex: `$motion-showreel`. Claude Code: `/motion-showreel`.
+A skill inclui a análise medida do reel que a originou, uma biblioteca de técnicas por
+capítulo, um template de HUD e ferramentas Node para analisar um vídeo de referência,
+medir a grade de tempos de uma música, emendá-la na grade de cortes e pré-mixar efeitos
+sonoros. Música e SFX podem ser gratuitos; para o objeto herói, prefira sua assinatura
+Kling AI (CLI `kling`). Kie.ai e ElevenLabs ficam como alternativas pagas opcionais.
 
 ## Exemplos existentes e migração
 

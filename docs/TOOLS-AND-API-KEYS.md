@@ -90,7 +90,10 @@ O kit usa o [Kie.ai](https://kie.ai/) para vídeo e imagens gerados. Defina
 status de tarefas e créditos.
 
 A skill de short-form descreve um fluxo com Kie; o kit **não** inclui um script
-universal de geração Kie nem uma conta conectada. Peça ao assistente para configurar
+universal de geração Kie nem uma conta conectada. A skill `motion-showreel` inclui um
+cliente pequeno (`scripts/kie.mjs`) para os três assets do showreel: música instrumental
+Suno, stills Seedream a partir do logo e movimentos de câmera Kling. Ele é opcional: com
+assinatura Kling AI, prefira o CLI oficial `kling` (veja a seção abaixo). Peça ao assistente para configurar
 o modelo escolhido usando a documentação atual. Adicionar a chave sozinha não cria
 uma integração. Entradas de modelo, formatos, disponibilidade e custos em créditos variam.
 
@@ -102,6 +105,24 @@ movimento, duração, proporção e enquadramento deles na edição final.
 > Use Kie.ai para B-roll em movimento nas cenas aprovadas. Confira minha configuração
 > local e a documentação atual do modelo, depois me mostre os assets que você propõe e
 > o custo esperado em créditos. Reutilize a filmagem existente onde ela couber.
+
+## Kling AI pela sua assinatura (preferido para o showreel)
+
+Quem tem assinatura [Kling AI](https://kling.ai/) usa o CLI oficial `kling` em vez de
+passar pelo Kie. Faça `kling login` (OAuth no navegador, sem chave em `.env`) e
+`kling who_am_i` para ver os modelos e os inputs de cada um. Depois:
+`kling image_to_image --image logo.png "<prompt>"`,
+`kling image_to_video --image heroi.png "<prompt>"` e
+`kling query_tasks <generation_id>` para pegar as URLs finais. Consome créditos da
+assinatura: confirme antes de gerar.
+
+## Música e efeitos sonoros do showreel
+
+A `motion-showreel` funciona só com áudio seu ou gratuito: Pixabay Music e Pixabay
+Sound Effects (licença livre) ou Freesound (confira a licença de cada arquivo). Os
+scripts de grade, emenda e mixagem são locais (FFmpeg). Como alternativa paga opcional,
+`scripts/sfx.mjs` gera um kit de SFX com ElevenLabs sound generation (usa
+`ELEVENLABS_API_KEY`, com acesso a sound effects) e `kie.mjs music` gera música Suno.
 
 ## Outras ferramentas opcionais citadas pelas skills incluídas
 
